@@ -1,7 +1,7 @@
 import React from 'react'
 import { createContext, useState, useEffect, useContext } from 'react'
 
-const AuthContext = createContext() // Cramos un contexto para el manejo de la autenticación
+export const AuthContext = createContext() // Cramos un contexto para el manejo de la autenticación
 
 export const AuthProvider = ({ children }) => { // Creamos un componente que se encargará de manejar el estado de la autenticación
   const [token, setToken] = useState(() => localStorage.getItem('token')); // Inicializamos el estado del token con el valor que se encuentre en el localStorage
