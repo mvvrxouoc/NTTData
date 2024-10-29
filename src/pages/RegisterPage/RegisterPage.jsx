@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 import { useRegister } from './useRegister';
 import { useForm } from '/src/hooks/useForm';
 import DatePickerInput from '../../components/DatePicker'
-import useDatePicker from '../../hooks/useDatePicker';
 
 export const RegisterPage = () => {
 
