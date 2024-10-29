@@ -1,7 +1,7 @@
 import { Route, Routes, Navigate, Router } from 'react-router-dom';
-import { LoginPage } from '../assets/pages/LoginPage';
-import { RegisterPage } from '../assets/pages/RegisterPage';
-import { PrivatePage } from '../assets/pages/PrivatePage';
+import { LoginPage } from '../pages/LoginPage/LoginPage';
+import { RegisterPage } from '../pages/RegisterPage/RegisterPage';
+import { PrivatePage } from '../pages/PrivatePage';
 import { PrivateRoute } from './PrivateRoute';
 import { AuthProvider } from '../context/AuthContext';
 

@@ -15,10 +15,12 @@ export const AuthProvider = ({ children }) => { // Creamos un componente que se 
   }, [token]); // El efecto se ejecutará cada vez que el token cambie
 
   const login = (newToken) => setToken(newToken); // Creamos una función para actualizar el token
+  const register = (newToken) => {
+    setToken(newToken);}
   const logout = () => setToken(null); // Creamos una función para eliminar el token
 
   return (
-      <AuthContext.Provider value={{ token, login, logout }}>
+      <AuthContext.Provider value={{ token, login, logout, register }}>
           {children}
       </AuthContext.Provider>
   );
