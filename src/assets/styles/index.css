@@ -113,16 +113,20 @@ button:hover {
   text-align: center;
 }
 
-.datepicker {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  color: rgba(255, 255, 255, 0.87);
-  transition: border-color 0.25s;
-  margin-right: 1em;
-  outline: none;
+.css-jupps9-MuiInputBase-root-MuiOutlinedInput-root{
+  background: rgb(26 26 26);
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border-color: rgb(26 26 26);
+  border-radius: 8px !important;
+}
+
+.MuiInputLabel-root[data-shrink="false"] {
+  color: rgb(117,117,117,1);
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border-color: rgb(26 26 26)!important;
+  border-radius: 8px !important;
 }
