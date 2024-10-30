@@ -4,6 +4,7 @@ import { RegisterPage } from '../pages/RegisterPage/RegisterPage';
 import { PrivatePage } from '../pages/PrivatePage';
 import { PrivateRoute } from './PrivateRoute';
 import { AuthProvider } from '../context/AuthContext';
+import React from 'react';
 
 export const App = () => {
     return (

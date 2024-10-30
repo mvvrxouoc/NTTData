@@ -1,8 +1,9 @@
 
 import { NavLink } from 'react-router-dom';
 import { useRegister } from './useRegister';
-import { useForm } from '/src/hooks/useForm';
+import { useForm } from 'hooks/useForm';
 import DatePickerInput from '../../components/DatePicker'
+import React from 'react';
 
 export const RegisterPage = () => {
 
@@ -35,7 +36,7 @@ export const RegisterPage = () => {
             <DatePickerInput
               label="Fecha de nacimiento"
               value={formValue.birthDate}
-              onChange={(newValue) => {
+              onChange={(newValue: any) => {
                 handleChange({target: {name: 'birthDate', value: newValue}});
               }}
               />
