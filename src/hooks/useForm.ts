@@ -1,8 +1,15 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, ChangeEvent } from "react"
+  
+export interface FormValues {
+    username: string;
+    password: string;
+    email?: string;
+    birthDate?: any;
+  }
 
-export const useForm = (initialValue) => {
+export const useForm = (initialValue: FormValues) => {
 
-    const [formValue, setFormValue] = useState(initialValue);
+    const [formValue, setFormValue] = useState<FormValues>(initialValue);
 
     useEffect(() => {
       console.log(formValue);
@@ -10,8 +17,8 @@ export const useForm = (initialValue) => {
     }, [formValue]);
     
     
-    const handleChange = ({target}) => {
-        const {name, value} = target; // Destructuracion de target, para no tener que usar target.name, target.value
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const {name, value} = event.target; 
         setFormValue({
             ...formValue,
             [name]: value, // [name] es una forma de acceder a la propiedad de un objeto de forma dinamica

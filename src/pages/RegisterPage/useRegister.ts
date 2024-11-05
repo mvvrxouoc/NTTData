@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { ValidationForm } from "../../utils/ValidationForm";
 import { useAuth } from "../../hooks/useAuth";
+import { FormValues } from "../../hooks/useForm";
 
 export const useRegister = () => {
   
@@ -10,7 +11,7 @@ export const useRegister = () => {
     const { register } = useAuth();
 
     
-    const onSubmit = async (formValue) => {
+    const onSubmit = async (formValue: FormValues) => {
 
         const validationErrorsRegister = ValidationForm(formValue, "register");
     
@@ -26,7 +27,7 @@ export const useRegister = () => {
               body: JSON.stringify(formValue),
             });
             const loginRes = await response.json();
-            if (loginRes) {
+            if (register && loginRes) {
               register(loginRes);
               navigate('/login');
             } else {

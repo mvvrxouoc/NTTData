@@ -1,23 +1,38 @@
-import React from 'react'
-import { createContext, useState, useEffect, useContext } from 'react'
 
-export const AuthContext = createContext() // Cramos un contexto para el manejo de la autenticación
+import { createContext, useState, useEffect, ReactNode} from 'react'
 
-export const AuthProvider = ({ children }) => { // Creamos un componente que se encargará de manejar el estado de la autenticación
-  const [token, setToken] = useState(() => localStorage.getItem('token')); // Inicializamos el estado del token con el valor que se encuentre en el localStorage
+export interface AuthContextProps {
+    token: string | null;
+    login?: (token: string) => void;
+    register?: (newToken: string) => void;
+    logout?: () => void;
+}
 
-  useEffect(() => { // Utilizamos un efecto para guardar el token en el localStorage
+export const AuthContext = createContext<AuthContextProps>({token: null});
+
+export const AuthProvider = ({ children } : {children : ReactNode}) => { 
+  const [token, setToken] = useState<string | null>(() => localStorage.getItem('token')); 
+
+  useEffect(() => { 
       if (token) {
-          localStorage.setItem('token', token); // Si el token existe, lo guardamos en el localStorage
+          localStorage.setItem('token', token); 
       } else {
-          localStorage.removeItem('token'); // Si no existe, lo eliminamos del localStorage
+          localStorage.removeItem('token'); 
       }
-  }, [token]); // El efecto se ejecutará cada vez que el token cambie
+  }, [token]); 
 
-  const login = (newToken) => setToken(newToken); // Creamos una función para actualizar el token
-  const register = (newToken) => {
-    setToken(newToken);}
-  const logout = () => setToken(null); // Creamos una función para eliminar el token
+  const login = (newToken: string) => {
+    setToken(newToken); 
+  }
+  
+  const register = (newToken: string) => {
+    setToken(newToken);
+  }
+
+
+  const logout = () => {
+    setToken(null); 
+  };
 
   return (
       <AuthContext.Provider value={{ token, login, logout, register }}>

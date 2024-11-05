@@ -1,24 +1,30 @@
-
+import React from 'react';
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { TextField } from '@mui/material';
-import React from "react";
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-const DatePickerInput = ({ value, onChange, label }) => {
+interface DatePickerInputProps {
+  value: any;
+  onChange: any;
+  label: string;
+}
+
+export const DatePickerInput: React.FC<DatePickerInputProps> = ({ value, onChange, label }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
         label={label}
         value={value}
         onChange={onChange}
-        renderInput={(params) => (
-          <TextField {...params} className="datepicker" placeholder={label} />
-        )}
+        slotProps={{
+          textField: {
+            placeholder: label,
+            className: "datepicker",
+          },
+        }}
       />
     </LocalizationProvider>
   );
 };
 
-export default DatePickerInput;
 

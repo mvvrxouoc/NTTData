@@ -1,7 +1,7 @@
-import React from 'react';
+
 import { NavLink } from 'react-router-dom';
 import { useLogin } from "./useLogin";
-import { useForm } from "hooks/useForm";
+import { useForm } from "../../hooks/useForm";
 
 export const LoginPage = () => {
 

@@ -1,10 +1,9 @@
-import { Route, Routes, Navigate, Router } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { LoginPage } from '../pages/LoginPage/LoginPage';
 import { RegisterPage } from '../pages/RegisterPage/RegisterPage';
 import { PrivatePage } from '../pages/PrivatePage';
 import { PrivateRoute } from './PrivateRoute';
 import { AuthProvider } from '../context/AuthContext';
-import React from 'react';
 
 export const App = () => {
     return (
