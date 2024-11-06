@@ -52,7 +52,8 @@ input {
   background-color: #1a1a1a;
   color: inherit;
   transition: border-color 0.25s;
-  margin-right: 1em;;
+  margin-right: 1em;
+  align-items: center;
 }
 
 a {
@@ -98,7 +99,6 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
-  margin-left: 1em;
   text-decoration: none;
   color: rgba(255, 255, 255, 0.87)
 }
@@ -129,4 +129,10 @@ button:hover {
 .MuiOutlinedInput-notchedOutline {
   border-color: rgb(26 26 26)!important;
   border-radius: 8px !important;
+}
+
+.google-login{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

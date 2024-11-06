@@ -2,11 +2,18 @@
 import { NavLink } from 'react-router-dom';
 import { useLogin } from "./useLogin";
 import { useForm } from "../../hooks/useForm";
+import { GoogleLogin } from '@react-oauth/google';
+import { useGoogleLoginHandler } from './useGoogleLoginHandler.ts';
 
 export const LoginPage = () => {
 
   const {error, onSubmit} = useLogin();
   const {formValue, handleChange} = useForm({username: '', password:''})
+  const {handleGoogleLogin, error: googleError} = useGoogleLoginHandler();
+
+  const responseMessage = (response: any) => {
+    console.log(response);
+  }
 
   return (
     <div className="form">
@@ -25,8 +32,14 @@ export const LoginPage = () => {
           name="password" 
           placeholder="Contraseña"
           onChange={handleChange}/>
-
+        
         <button type="submit">Iniciar sesión</button>
+
+        <div className="google-login">
+        <GoogleLogin onSuccess={handleGoogleLogin} onError={() => console.log("Error de Google Login")} />
+        {googleError && <p className="error">{googleError}</p>}
+        </div>
+
       </form>
       {error && <p className="error">{error}</p>}
       <div className="segopt">

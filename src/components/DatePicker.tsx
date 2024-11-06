@@ -4,8 +4,8 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 interface DatePickerInputProps {
-  value: any;
-  onChange: any;
+  value: Date | null;
+  onChange: (newValue: Date | null) => void;
   label: string;
 }
 
