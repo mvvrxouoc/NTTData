@@ -4,8 +4,8 @@ import React from 'react';
 
 export const PrivateRoute = ({children}: {children: React.ReactNode}) => {
 
-    const { token } = useAuth();
+    const { user } = useAuth();
 
-    return token ? children : <Navigate to="/login"/>
+    return user?.userData?.token ? children : <Navigate to="/login"/>
     
 }

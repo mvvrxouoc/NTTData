@@ -1,41 +1,61 @@
 
-import { createContext, useState, useEffect, ReactNode} from 'react'
+import { createContext, useState, ReactNode} from 'react'
 
-export interface AuthContextProps {
-    token: string | null;
-    login?: (token: string) => void;
-    register?: (newToken: string) => void;
-    logout?: () => void;
+interface userDataProps {
+  name: string;
+  token: string;
+  email?: string;
+  birthDay?: Date | string;
 }
 
-export const AuthContext = createContext<AuthContextProps>({token: null});
+interface userGoogleProps {
+  auth: {
+    token: string;
+    refreshToken: string;
+  },
+  calendar: {
+    id: string;
+  },
+}
+
+export interface UserProps {
+  userData?: userDataProps,
+  google?: userGoogleProps,
+}
+
+export interface AuthContextProps {
+  user: UserProps | null;
+  login: (user : {user: {token: string, name: string }}) => void;
+  logout: () => void;
+}
+
+export const AuthContext = createContext<AuthContextProps>({
+  user: null,
+  login: () => {},
+  logout: () => {},
+});
 
 export const AuthProvider = ({ children } : {children : ReactNode}) => { 
-  const [token, setToken] = useState<string | null>(() => localStorage.getItem('token')); 
-
-  useEffect(() => { 
-      if (token) {
-          localStorage.setItem('token', token); 
-      } else {
-          localStorage.removeItem('token'); 
-      }
-  }, [token]); 
-
-  const login = (newToken: string) => {
-    setToken(newToken); 
-  }
   
-  const register = (newToken: string) => {
-    setToken(newToken);
-  }
+  const [user, setUser] = useState<UserProps | null>(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') as string) : null); 
 
+  const login = (user : { user: {name: string, token: string} } ) => {
+    
+    setUser( prevUser => { 
+      return { 
+        ...prevUser, userData: { name: user.user.name, token: user.user.token, isAuthenticated: true } }
+    });
+    localStorage.setItem('user', JSON.stringify(user));
+    
+  };
 
   const logout = () => {
-    setToken(null); 
+    setUser(null);
+    localStorage.removeItem("user");
   };
 
   return (
-      <AuthContext.Provider value={{ token, login, logout, register }}>
+      <AuthContext.Provider value={{ user, login, logout  }}>
           {children}
       </AuthContext.Provider>
   );

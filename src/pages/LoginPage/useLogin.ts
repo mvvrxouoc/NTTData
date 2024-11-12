@@ -29,7 +29,7 @@ export const useLogin = () => {
       
       if (login && response.ok) {
         const loginRes = await response.json();
-        login(loginRes.token);
+        login(loginRes);
         navigate('/private');
       } else {
         setError('Datos incorrectos');

@@ -25,10 +25,10 @@ h1 {
 
 form {
   display: flex;
-  flex-direction: column; /* Cambiado de row a column */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1em; /* Espaciado entre los elementos */
+  gap: 1em;
 }
 
 .auxiliar{
@@ -135,4 +135,101 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.logo {
+  font-size: 1.5rem;
+}
+
+nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+}
+
+nav a.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.logout-button {
+  background-color: #ef233c;
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.logout-button:hover {
+  background-color: #d90429;
+  color: white;
+}
+
+.task-dnd-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.categories {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.category-card {
+  padding: 10px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.task-item {
+  padding: 15px;
+  background-color: #e7e7e7;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }

@@ -13,7 +13,6 @@ export const useForm = (initialValue: FormValues) => {
 
     useEffect(() => {
       console.log(formValue);
-
     }, [formValue]);
     
     
