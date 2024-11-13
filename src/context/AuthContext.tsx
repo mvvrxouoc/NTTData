@@ -36,17 +36,12 @@ export const AuthContext = createContext<AuthContextProps>({
 });
 
 export const AuthProvider = ({ children } : {children : ReactNode}) => { 
-  
   const [user, setUser] = useState<UserProps | null>(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') as string) : null); 
 
   const login = (user : { user: {name: string, token: string} } ) => {
-    
-    setUser( prevUser => { 
-      return { 
-        ...prevUser, userData: { name: user.user.name, token: user.user.token, isAuthenticated: true } }
-    });
-    localStorage.setItem('user', JSON.stringify(user));
-    
+    const userData = { userData : { name: user.user.name, token: user.user.token, isAuthenticated: true } };
+    setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
   };
 
   const logout = () => {

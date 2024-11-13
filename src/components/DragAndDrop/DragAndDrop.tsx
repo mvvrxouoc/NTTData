@@ -1,48 +1,57 @@
-import React, { useState } from 'react';
-import { DndContext, useDraggable, useDroppable } from '@dnd-kit/core';
+import React, {useState} from 'react';
+import {DndContext} from '@dnd-kit/core';
 
-interface Task {
-  id: number;
-  name: string;
-  category: string;
-  description?: string;
-  date?: string;
-}
+import {Droppable} from './Droppable';
+import {Draggable} from './Draggable';
+
+import {TaskBox} from './TaskBox';
+import {TaskList} from './TaskList';
 
 const categories = ['Ocio', 'Trabajo', 'Familia', 'Personal'];
 
 export const DragAndDrop: React.FC = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [currentTask, setCurrentTask] = useState<Task | null>(null);
+  const [isDropped, setIsDropped] = useState(false);
+  const [tasks, setTasks] = useState<any[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const handleDragEnd = (event: any) => {
-    const { over } = event;
-    if (over) {
-      setCurrentTask({
-        id: Date.now(),
-        name: '',
-        category: over.id,
-        description: '',
-        date: '',
-      });
+    if (event.over && event.over.id === 'droppable') {
+      setIsDropped(true);
+      setSelectedCategory(event.active.id);
     }
-  };
+  }
 
-  const handleSave = () => {
-    if (currentTask) {
-      setTasks([...tasks, currentTask]);
-      setCurrentTask(null);
-    }
+  const handleSave = (task: any) => {
+    setTasks([...tasks, task]);
+    setIsDropped(false);
+    setSelectedCategory(null);
   };
 
   const handleCancel = () => {
-    setCurrentTask(null);
+    setIsDropped(false);
+    setSelectedCategory(null);
   };
+  
+  return (
+    <DndContext onDragEnd={handleDragEnd}>
+      <div className="categories">
+        {categories.map((category) => (
+          <Draggable key={category} id={category}>
+            {category}
+          </Draggable>
+        ))}
+      </div>
+      <div className="drag-and-drop-container">
+        <Droppable id="droppable">
+          {!isDropped && 'Arrastra una categoría aquí'}
+        </Droppable>
+        {isDropped && (
+          <TaskBox onSave={handleSave} onCancel={handleCancel} category={selectedCategory} />
+        )}
+      </div>
+      <TaskList tasks={tasks} />
+    </DndContext>
+  );
+  
 
-  return 
-    
-  };
-
-
-
-
+}

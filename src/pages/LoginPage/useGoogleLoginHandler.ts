@@ -23,9 +23,9 @@ export const useGoogleLoginHandler = () => {
         body: JSON.stringify({ token: credentialResponse.credential }),
       });
 
-      if (login && response.ok) {
+      if (response.ok) {
         const loginRes = await response.json();
-        login(loginRes);
+        login({ user: {name: loginRes.user.username, token: loginRes.token } });
         navigate("/private");
       } else {
         setError("Error al iniciar sesión con Google");
