@@ -9,7 +9,7 @@ export const TaskBox: React.FC<{ onSave: (task: any) => void; onCancel: () => vo
     }
   }, [category]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setTask({ ...task, [name]: value });
   };

@@ -1,10 +1,12 @@
 
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import { Dropdown } from './Dropdown';
 
 export const Header = () => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
+  
 
     const isAuthenticaded = user?.userData?.token ?? false;
 
@@ -21,7 +23,7 @@ export const Header = () => {
           <>
             <NavLink to="/">Inicio</NavLink>
             <NavLink to="/user-data">Datos de Usuario</NavLink>
-            <NavLink to="/examples">Ejemplos</NavLink>
+            <Dropdown />
           </>
         )}
       </nav>

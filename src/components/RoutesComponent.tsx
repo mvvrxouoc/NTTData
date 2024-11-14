@@ -1,11 +1,12 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth"
 import { UserDataPage } from "../pages/UserDataPage";
-import { ExamplesPage } from "../pages/ExamplesPage";
+import { DragAndDropPage } from "../pages/DragAndDropPage";
 import { LoginPage } from "../pages/LoginPage/LoginPage";
 import { PrivatePage } from "../pages/PrivatePage";
 import { RegisterPage } from "../pages/RegisterPage/RegisterPage";
 import { PrivateRoute } from "./PrivateRoute";
+import { PokemonApiPage } from "../pages/PokemonApiPage";
 
 export const RoutesComponent = () => {
     const {user} = useAuth();
@@ -16,7 +17,8 @@ export const RoutesComponent = () => {
                     {user?.userData?.token ? (
                         <>
                         <Route path="/user-data" element={<UserDataPage />} />
-                        <Route path="/examples" element={<ExamplesPage />} />
+                        <Route path="/dnd" element={<DragAndDropPage />} />
+                        <Route path="/pokemon-api" element={<PokemonApiPage />} />
                         <Route path="/private" element={<PrivateRoute><PrivatePage/></PrivateRoute>} />
                         <Route path="/" element={<Navigate to="/private" />} />
                         </>
