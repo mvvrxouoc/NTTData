@@ -1,4 +1,4 @@
-import { PokemonApi } from '../components/PokemonApi/PokemonApi';
+import { PokemonApi } from '../../components/PokemonApi/PokemonApi';
 
 export const PokemonApiPage = () => {
   return (

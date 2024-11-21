@@ -61,7 +61,7 @@ app.post('/api/google-login', async (req, res) => {
             return res.status(400).json({ message: 'Token incorrecto' });
         }
 
-        const { sub, email, name } = payload;
+        const { sub, email, name, picture } = payload;
 
         let user = users.find(user => user.email === email);
 
@@ -70,13 +70,14 @@ app.post('/api/google-login', async (req, res) => {
                 id: sub,
                 username: name,
                 email: email,
+                picture: picture,
                 password: null,
             };
             users.push(user);
         }
         
-        const fakeToken = 'fake-jwt-token';
-        res.status(200).json({ token: fakeToken, user: { username: user.username, email: user.email } });
+        const fakeToken = token;
+        res.status(200).json({ token: fakeToken, user: { username: user.username, email: user.email, picture: user.picture } });
     } catch (error) {
         console.error('Error al vrificar el token de Google:', error);
         res.status(400).json({ message: 'Token incorrecto' });

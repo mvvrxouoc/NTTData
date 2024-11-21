@@ -3,7 +3,8 @@ import { NavLink } from 'react-router-dom';
 import { useLogin } from "./useLogin";
 import { useForm } from "../../hooks/useForm";
 import { GoogleLogin } from '@react-oauth/google';
-import { useGoogleLoginHandler } from './useGoogleLoginHandler.ts';
+import { useGoogleLoginHandler } from './useGoogleLoginHandler';
+
 
 export const LoginPage = () => {
 
@@ -34,13 +35,15 @@ export const LoginPage = () => {
           onChange={handleChange}/>
         
         <button type="submit">Iniciar sesión</button>
+      </form>
 
-        <div className="google-login">
-        <GoogleLogin onSuccess={handleGoogleLogin} onError={() => console.log("Error de Google Login")} />
+      <div className="google-login">
+        <GoogleLogin onSuccess={handleGoogleLogin} 
+        onError={() => console.log("Error de Google Login")}
+        />
         {googleError && <p className="error">{googleError}</p>}
         </div>
 
-      </form>
       {error && <p className="error">{error}</p>}
       <div className="segopt">
         <h4>¿No tienes cuenta?</h4>

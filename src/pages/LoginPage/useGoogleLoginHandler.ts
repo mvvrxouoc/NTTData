@@ -25,7 +25,10 @@ export const useGoogleLoginHandler = () => {
 
       if (response.ok) {
         const loginRes = await response.json();
-        login({ user: {name: loginRes.user.username, token: loginRes.token } });
+        login({ user: {
+          name: loginRes.user.username, token: loginRes.token,
+          email: ""
+        } });
         navigate("/private");
       } else {
         setError("Error al iniciar sesión con Google");
@@ -38,4 +41,3 @@ export const useGoogleLoginHandler = () => {
 
   return { handleGoogleLogin, error };
 };
-

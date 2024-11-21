@@ -1,11 +1,11 @@
-
-import { createContext, useState, ReactNode} from 'react'
+import { createContext, useState, ReactNode } from 'react';
 
 interface userDataProps {
   name: string;
   token: string;
+  isAuthenticated: boolean;
   email?: string;
-  birthDay?: Date | string;
+  picture?: string;
 }
 
 interface userGoogleProps {
@@ -16,6 +16,8 @@ interface userGoogleProps {
   calendar: {
     id: string;
   },
+  email?: string;
+  picture?: string;
 }
 
 export interface UserProps {
@@ -25,7 +27,7 @@ export interface UserProps {
 
 export interface AuthContextProps {
   user: UserProps | null;
-  login: (user : {user: {token: string, name: string }}) => void;
+  login: (user: { user: { token: string, name: string, email: string, picture?: string } }) => void;
   logout: () => void;
 }
 
@@ -35,11 +37,33 @@ export const AuthContext = createContext<AuthContextProps>({
   logout: () => {},
 });
 
-export const AuthProvider = ({ children } : {children : ReactNode}) => { 
-  const [user, setUser] = useState<UserProps | null>(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') as string) : null); 
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const [user, setUser] = useState<UserProps | null>(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') as string) : null);
 
-  const login = (user : { user: {name: string, token: string} } ) => {
-    const userData = { userData : { name: user.user.name, token: user.user.token, isAuthenticated: true } };
+  const login = (user: { user: { name: string, token: string, email: string, picture?: string } }) => {
+    const userData = {
+      userData: {
+        name: user.user.name,
+        token: user.user.token,
+        isAuthenticated: true,
+        calendar: {
+          id: '',
+        },
+        email: user.user.email,
+        picture: user.user.picture,
+      },
+      google: {
+        auth: {
+          token: user.user.token,
+          refreshToken: '',
+        },
+        calendar: {
+          id: '',
+        },
+        email: user.user.email,
+        picture: user.user.picture,
+      },
+    };
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
   };
@@ -50,8 +74,8 @@ export const AuthProvider = ({ children } : {children : ReactNode}) => {
   };
 
   return (
-      <AuthContext.Provider value={{ user, login, logout  }}>
-          {children}
-      </AuthContext.Provider>
+    <AuthContext.Provider value={{ user, login, logout }}>
+      {children}
+    </AuthContext.Provider>
   );
-}
+};

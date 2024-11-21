@@ -15,6 +15,7 @@ export const Dropdown = () => {
         <div className="dropdown-content">
             <NavLink to="/dnd">Drag and Drop</NavLink>
             <NavLink to="/pokemon-api">Pokemon API</NavLink>
+            <NavLink to="/google-calendar">Google Calendar</NavLink>
         </div>
         )}
     </div>

@@ -1,5 +1,5 @@
 
-import { DragAndDrop } from '../components/DragAndDrop/DragAndDrop';
+import { DragAndDrop } from '../../components/DragAndDrop/DragAndDrop';
 
 export const DragAndDropPage = () => {
   return (
