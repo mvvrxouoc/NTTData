@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react"
 import { ValidationForm } from "../../utils/ValidationForm";
 import { FormValues } from "../../hooks/useForm";
+import { UserDataProps } from "../../types";
 
 
 export const useLogin = () => {
@@ -12,7 +13,6 @@ export const useLogin = () => {
   const navigate = useNavigate();
   
   const onSubmit = async (formValue: FormValues) => {
-
     const validationErrorsLogin = ValidationForm(formValue, "login");
 
     if (Object.keys(validationErrorsLogin).length > 0) {
@@ -29,7 +29,15 @@ export const useLogin = () => {
       
       if (login && response.ok) {
         const loginRes = await response.json();
-        login(loginRes);
+        const userSpa: UserDataProps= {
+          name: loginRes.user.username,
+          token: loginRes.token,
+          email: loginRes.user.email,
+          picture: loginRes.user.picture,
+          isAuthenticated: true,
+        };
+        login({ userSpa });
+        console.log("Navegando a /private");
         navigate('/private');
       } else {
         setError('Datos incorrectos');

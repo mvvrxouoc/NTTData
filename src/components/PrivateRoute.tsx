@@ -6,6 +6,8 @@ export const PrivateRoute = ({children}: {children: React.ReactNode}) => {
 
     const { user } = useAuth();
 
+    console.log("Estado del usuario en PrivateRoute:", user);
+
     return user?.userData?.token ? children : <Navigate to="/login"/>
     
 }

@@ -15,7 +15,7 @@ app.post('/api/login', (req, res) => {
     const user = users.find(user => user.username === username && user.password === password);
     
     if (user) {
-        res.status(200).json({ user: { name: user.username, token: 'fake-jwt-token' } });
+        res.status(200).json({ user: { name: user.username, email: user.email, token: 'fake-jwt-token' } });
     } else {
         res.status(401).json({ message: 'Datos incorrectos' });
     }
