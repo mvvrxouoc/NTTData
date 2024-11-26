@@ -1,9 +1,10 @@
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react"
+import { useState } from "react";
 import { ValidationForm } from "../../utils/ValidationForm";
 import { FormValues } from "../../hooks/useForm";
 import { UserDataProps } from "../../types";
+import { login as loginService } from "../../api/services/authService";
 
 
 export const useLogin = () => {
@@ -21,34 +22,25 @@ export const useLogin = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:4000/api/login', {
-        method: "POST",
-        headers: { "Content-Type": "application/json", },
-        body: JSON.stringify(formValue),
-      });
-      
-      if (login && response.ok) {
-        const loginRes = await response.json();
-        const userSpa: UserDataProps= {
-          name: loginRes.user.username,
-          token: loginRes.token,
-          email: loginRes.user.email,
-          picture: loginRes.user.picture,
-          isAuthenticated: true,
-        };
-        login({ userSpa });
-        console.log("Navegando a /private");
-        navigate('/private');
-      } else {
-        setError('Datos incorrectos');
-      }
-    }catch (error) {
+      const loginRes = await loginService(formValue.username, formValue.password);
+      const userSpa: UserDataProps= {
+        name: loginRes.name,
+        token: loginRes.token,
+        email: loginRes.email,
+        picture: loginRes.picture,
+        isAuthenticated: true,
+      };
+      login({ userSpa });
+      console.log("Navegando a /private");
+      navigate('/private');
+    }catch (err: any) {
       console.log(error);
-      setError('Error en el servidor');
+      setError(err.message || 'Error en el servidor');
     }
-    
-  }
+  };
+
   return {
-    onSubmit, error
-  }
-}
+    onSubmit, 
+    error
+  };
+};

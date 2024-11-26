@@ -34,7 +34,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
     console.log("Usuario autenticado:", userData);
-    console.log(localStorage.getItem('user'));
     
   };
 

@@ -5,6 +5,7 @@ import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import { format, parse, startOfWeek, getDay } from "date-fns";
 import enUS from "date-fns/locale/en-US";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import { fetchCalendars, fetchCalendarEvents } from "../api/services/googleCalendarService";
 
 const locales = {
   "en-US": enUS,
@@ -28,59 +29,34 @@ export const GoogleCalendarSelector = () => {
     onSuccess: async (tokenResponse) => {
       console.log("Login Exitoso:", tokenResponse);
       const accessToken = tokenResponse.access_token;
-
       setUser(tokenResponse);
-
-      fetchCalendars(accessToken);
+      try {
+        const fetchedCalendars = await fetchCalendars(accessToken);
+        setCalendars(fetchedCalendars);
+      } catch (error) {
+        console.error("Error al obtener calendarios:", error);
+      }
     },
     onError: (error) => console.error("Error en el login:", error),
     scope: "https://www.googleapis.com/auth/calendar.readonly",
   });
 
-  const fetchCalendars = async (accessToken: any) => {
-    try {
-      const response = await axios.get(
-        "https://www.googleapis.com/calendar/v3/users/me/calendarList",
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-      console.log("Calendarios:", response.data.items);
-      setCalendars(response.data.items);
-    } catch (error) {
-      console.error("Error al obtener calendarios:", error);
-    }
-  };
-
-  const fetchCalendarEvents = async (accessToken: any, calendarId: string) => {
-    try {
-      const response = await axios.get(
-        `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-      console.log("Eventos del calendario:", response.data.items);
-      const formattedEvents = response.data.items.map((event: any) => ({
-        title: event.summary || "Sin título",
-        start: new Date(event.start.dateTime || event.start.date),
-        end: new Date(event.end.dateTime || event.end.date),
-      }));
-      setEvents(formattedEvents);
-    } catch (error) {
-      console.error("Error al obtener eventos del calendario:", error);
-    }
-  };
-
   const handleCalendarChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const calendarId = event.target.value;
     setSelectedCalendar(calendarId);
     if (user) {
-      fetchCalendarEvents(user.access_token, calendarId);
+      fetchCalendarEvents(user.access_token, calendarId)
+      .then((items) => {
+        const formattedEvents = items.map((event: any) => ({
+          title: event.summary || "Sin título",
+          start: new Date(event.start.dateTime || event.start.date),
+          end: new Date(event.end.dateTime || event.end.date),
+        }));
+        setEvents(formattedEvents);
+      })
+      .catch((error) => {
+        console.error("Error al obtener eventos:", error);
+      });
     }
   };
 

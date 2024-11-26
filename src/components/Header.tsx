@@ -6,9 +6,9 @@ import { Dropdown } from './Dropdown';
 export const Header = () => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
-  
 
-    const isAuthenticaded = user?.userData?.token ?? false;
+    const isAuthenticaded = (user?.userData?.token || user?.google?.token) ?? false;
+    const userData = user?.userData || user?.google;
 
     const handleLogout = () => {
         logout();
@@ -30,7 +30,7 @@ export const Header = () => {
       <div className="user-info">
         {isAuthenticaded && (
           <>
-            <span className="username">{user?.userData?.name}</span>
+            <span className="username">{userData?.name}</span>
             <button onClick={handleLogout} className="logout-button">Cerrar Sesión</button>
           </>
         )}

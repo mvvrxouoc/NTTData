@@ -8,6 +8,8 @@ export const PrivateRoute = ({children}: {children: React.ReactNode}) => {
 
     console.log("Estado del usuario en PrivateRoute:", user);
 
-    return user?.userData?.token ? children : <Navigate to="/login"/>
+    const isAuthenticated = user?.userData?.token || user?.google?.token;
+
+    return isAuthenticated ? children : <Navigate to="/login"/>
     
 }

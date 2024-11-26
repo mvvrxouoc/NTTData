@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { getPokemon } from '../../api/services/pokemonApiService';
 
 export const PokemonApi = () => {
 
@@ -16,15 +17,11 @@ export const PokemonApi = () => {
           return;
         }
         try {
-            const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`);
-            if (!response.ok) {
-            throw new Error('Pokémon no encontrado');
-            }
-            const data = await response.json();
+            const data = await getPokemon(pokemonName);
             setPokemonData(data);
             setError('');
-        } catch (err) {
-            setError((err as Error).message);
+        } catch (err: any) {
+            setError(err.message);
             setPokemonData(null);
         }
     };

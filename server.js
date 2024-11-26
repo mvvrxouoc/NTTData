@@ -77,7 +77,7 @@ app.post('/api/google-login', async (req, res) => {
         }
         
         const fakeToken = token;
-        res.status(200).json({ token: fakeToken, user: { username: user.username, email: user.email, picture: user.picture } });
+        res.status(200).json({ token: fakeToken, user: { name: user.username, email: user.email, picture: user.picture } });
     } catch (error) {
         console.error('Error al vrificar el token de Google:', error);
         res.status(400).json({ message: 'Token incorrecto' });

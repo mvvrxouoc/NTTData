@@ -14,7 +14,7 @@ export const RoutesComponent = () => {
 
   return (
     <Routes>
-      {user?.userData?.token ? (
+      {user?.userData?.token || user?.google?.token ? (
         <>
           <Route path="/user-data" element={<UserDataPage />} />
           <Route path="/dnd" element={<DragAndDropPage />} />
