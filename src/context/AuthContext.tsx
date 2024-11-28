@@ -16,12 +16,14 @@ export const AuthContext = createContext<AuthContextProps>({
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<UserProps | null>(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') as string) : null);
 
-  const login = (props : { userSpa?: UserDataProps; google?: UserGoogleProps }) => {
+  const login = (props: { userSpa?: UserDataProps; google?: UserGoogleProps }) => {
     const { userSpa, google } = props;
-    const userData: UserProps = { ...{}, ...user };
-
-    if ( google ) {
-      userData.google = google;
+    const userData: UserProps = { ...user };
+  
+    if (google) {
+      userData.google = { 
+        ...google
+      };
     } 
     
     if ( userSpa ) {

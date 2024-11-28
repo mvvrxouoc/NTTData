@@ -30,11 +30,11 @@ export const login = async (username: string, password: string) => {
     return data;
   };
   
-  export const googleLogin = async (token: string) => {
+  export const googleLogin = async (code: string) => {
     const response = await fetch('http://localhost:4000/api/google-login', {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token }),
+      body: JSON.stringify({ code }),
     });
   
     if (!response.ok) {

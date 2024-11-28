@@ -2,23 +2,21 @@ import { googleLogin } from "../../api/services/authService";
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { CredentialResponse } from "@react-oauth/google";
+import { CodeResponse } from "@react-oauth/google";
 
 export const useGoogleLoginHandler = () => {
   const [error, setError] = useState("");
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleGoogleLogin = async (credentialResponse: CredentialResponse) => {
-    if (!credentialResponse.credential) {
+  const handleGoogleLogin = async (codeResponse: CodeResponse) => {
+    if (!codeResponse.code) {
       setError("Error al obtener credenciales de Google");
       return;
     }
 
-    console.log("Token recibido", credentialResponse.credential);
-
     try {
-      const loginRes = await googleLogin(credentialResponse.credential);
+      const loginRes = await googleLogin(codeResponse.code);
       const userGoogle = {
         name: loginRes.user.name,
         token: loginRes.token,

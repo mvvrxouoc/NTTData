@@ -1,12 +1,29 @@
 import express from 'express';
 import cors from 'cors';
 import { OAuth2Client } from 'google-auth-library';
+import { google } from 'googleapis';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 const users = [];
-const client = new OAuth2Client("499673786460-0i0u0ke85r2ll6hf818mln3v402996h2.apps.googleusercontent.com");
+
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
+const REDIRECT_URI = "http://localhost:5173";
+
+const client = new OAuth2Client(
+  CLIENT_ID,
+  CLIENT_SECRET,
+  REDIRECT_URI
+);
+
+console.log('CLIENT_ID:', CLIENT_ID);
+console.log('CLIENT_SECRET:', CLIENT_SECRET);
 
 // Endpoints
 app.post('/api/login', (req, res) => {
@@ -48,41 +65,38 @@ app.post('/api/register', (req, res) => {
 });
 
 app.post('/api/google-login', async (req, res) => {
-    const { token } = req.body;
-    console.log('Token recibido en el backend', token);
+    const { code } = req.body;
+    const redirectUri = "http://localhost:5173";
+  
     try {
-        const ticket = await client.verifyIdToken({
-            idToken: token,
-            audience: "499673786460-0i0u0ke85r2ll6hf818mln3v402996h2.apps.googleusercontent.com",
-        });
-        const payload = ticket.getPayload();
-
-        if (!payload) {
-            return res.status(400).json({ message: 'Token incorrecto' });
-        }
-
-        const { sub, email, name, picture } = payload;
-
-        let user = users.find(user => user.email === email);
-
-        if (!user) {
-            user = {
-                id: sub,
-                username: name,
-                email: email,
-                picture: picture,
-                password: null,
-            };
-            users.push(user);
-        }
-        
-        const fakeToken = token;
-        res.status(200).json({ token: fakeToken, user: { name: user.username, email: user.email, picture: user.picture } });
+      
+      const { tokens } = await client.getToken({ code, redirect_uri: redirectUri });
+      client.setCredentials(tokens);
+  
+      const oauth2 = google.oauth2('v2');
+      const userInfo = await oauth2.userinfo.get({ auth: client });
+  
+      const { id, email, name, picture } = userInfo.data;
+  
+      let user = users.find(user => user.email === email);
+  
+      if (!user) {
+        user = {
+          id: id,
+          username: name,
+          email: email,
+          picture: picture,
+          password: null,
+        };
+        users.push(user);
+      }
+  
+      res.status(200).json({ token: tokens.access_token, user: { name: user.username, email: user.email, picture: user.picture } });
     } catch (error) {
-        console.error('Error al vrificar el token de Google:', error);
-        res.status(400).json({ message: 'Token incorrecto' });
+      console.error('Error al intercambiar el código de autorización:', error);
+      res.status(400).json({ message: error.message || 'Error al ingresar con Google' });
     }
-});
+  });
 
 const PORT = 4000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

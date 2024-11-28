@@ -1,13 +1,20 @@
 import { NavLink } from 'react-router-dom';
 import { useLogin } from "./useLogin";
 import { useForm } from "../../hooks/useForm";
-import { GoogleLogin } from '@react-oauth/google';
-import { useGoogleLoginHandler } from './useGoogleLoginHandler';
+import { useGoogleLogin } from '@react-oauth/google';
+import { useGoogleLoginHandler } from '../../components/GoogleLoginComponent/useGoogleLoginHandler';
 
 export const LoginPage = () => {
   const { error, onSubmit } = useLogin();
   const { formValue, handleChange } = useForm({ username: '', password: '' });
   const { handleGoogleLogin, error: googleError } = useGoogleLoginHandler();
+
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse: any) => handleGoogleLogin(codeResponse),
+    onError: () => console.log('Error de Google Login'),
+    scope: 'openid email profile https://www.googleapis.com/auth/calendar.readonly',
+    flow: 'auth-code',
+  });
 
   return (
     <div className="form">
@@ -31,7 +38,7 @@ export const LoginPage = () => {
       </form>
 
       <div className="google-login">
-        <GoogleLogin onSuccess={handleGoogleLogin} onError={() => console.log("Error de Google Login")} />
+        <button onClick={() => login()}>Iniciar sesión con Google</button>
         {googleError && <p className="error">{googleError}</p>}
       </div>
 

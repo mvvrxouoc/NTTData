@@ -12,7 +12,8 @@ export interface UserGoogleProps {
 	token: string;
 	email: string;
 	picture: string;
-}
+	accessToken?: string; // Puedes almacenar el accessToken si es necesario
+  }
   
 export interface UserProps {
 	userSpa?: UserDataProps,
