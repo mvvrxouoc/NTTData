@@ -1,4 +1,5 @@
 import { createContext, useState, ReactNode } from 'react';
+import React from 'react';
 import { UserDataProps, UserGoogleProps, UserProps } from '../types/index';
 
 export interface AuthContextProps {
@@ -15,6 +16,8 @@ export const AuthContext = createContext<AuthContextProps>({
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<UserProps | null>(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') as string) : null);
+
+  const [calendarId, setCalendarId] = React.useState<string | null>(null);
 
   const login = (props: { userSpa?: UserDataProps; google?: UserGoogleProps }) => {
     const { userSpa, google } = props;
@@ -45,7 +48,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, calendarId, setCalendarId }}>
       {children}
     </AuthContext.Provider>
   );

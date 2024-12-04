@@ -1,6 +1,6 @@
 import { useGoogleLogin } from '@react-oauth/google';
 import { useAuth } from '../hooks/useAuth';
-import { GoogleCalendarSelector } from '../components/GoogleCalendarSelector';
+import { CalendarSelector } from '../components/GoogleCalendar/CalendarSelector';
 import { useGoogleLoginHandler } from '../components/GoogleLoginComponent/useGoogleLoginHandler';
 
 export const UserDataPage = () => {
@@ -35,7 +35,7 @@ export const UserDataPage = () => {
           {googleError && <p className="error">{googleError}</p>}
         </div>
       ) : (
-        <GoogleCalendarSelector />
+        <CalendarSelector />
       )}
     </div>
   );

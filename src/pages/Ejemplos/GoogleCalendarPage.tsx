@@ -1,10 +1,10 @@
 
-import { GoogleCalendarSelector } from '../../components/GoogleCalendarSelector'
+import { CalendarView } from '../../components/GoogleCalendar/CalendarView';
 
 export const GoogleCalendarPage = () => {
   return (
     <div>
-        <GoogleCalendarSelector />
+        <CalendarView />
     </div>
   )
 }
