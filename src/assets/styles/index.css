@@ -399,3 +399,26 @@ nav a.active {
   flex-direction: column;
   align-items: center;
 }
+
+.private-page {
+  display: flex;
+}
+
+.selectors {
+  flex: 1;
+}
+
+.event-card-container {
+  flex: 1;
+  padding: 20px;
+}
+
+.droppable-card {
+  border: 1px solid #ccc;
+  min-height: 200px;
+  padding: 20px;
+}
+
+.droppable-card.over {
+  border-color: green;
+}
