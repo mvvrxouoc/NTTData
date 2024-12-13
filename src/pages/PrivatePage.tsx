@@ -6,6 +6,8 @@ import { DroppableCard } from '../components/CreateEvents/DroppableCard';
 import { Draggable } from '../components/DragAndDrop/Draggable';
 import { DndContext } from '@dnd-kit/core';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
+import { CalendarSelector } from '../components/GoogleCalendar/CalendarSelector';
 
 export const PrivatePage = () => {
   const [step, setStep] = useState(1);
@@ -14,6 +16,7 @@ export const PrivatePage = () => {
   const [category, setCategory] = useState('');
   const [location, setLocation] = useState('');
   const navigate = useNavigate();
+  const { user, calendarId } = useAuth();
 
   const categories = ['Ocio', 'Trabajo', 'Familia', 'Personal'];
 
@@ -54,6 +57,19 @@ export const PrivatePage = () => {
       handleCategorySelect(selectedCategory);
     }
   };
+
+  if (!user?.google?.token) {
+    return <p>Necesitas conectarte con Google para utilizar esta funcionalidad.</p>;
+  }
+
+  if (!calendarId) {
+    return (
+      <div>
+        <p>Por favor, selecciona un calendario:</p>
+        <CalendarSelector />
+      </div>
+    );
+  }
 
   return (
     <div className="private-page">

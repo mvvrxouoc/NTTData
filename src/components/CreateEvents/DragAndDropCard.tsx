@@ -3,6 +3,7 @@ import React from 'react';
 import { DndContext } from '@dnd-kit/core';
 import { Draggable } from '../DragAndDrop/Draggable';
 import { useDroppable } from '@dnd-kit/core';
+import { CATEGORIES } from '../../utils/constants';
 
 interface DragAndDropCardProps {
   onCategorySelect: (category: string) => void;
@@ -10,7 +11,7 @@ interface DragAndDropCardProps {
 }
 
 export const DragAndDropCard: React.FC<DragAndDropCardProps> = ({ onCategorySelect, children }) => {
-  const categories = ['Ocio', 'Trabajo', 'Familia', 'Personal'];
+  const categories = Object.keys(CATEGORIES);
 
   const { isOver, setNodeRef } = useDroppable({
     id: 'droppable-card',
@@ -22,11 +23,11 @@ export const DragAndDropCard: React.FC<DragAndDropCardProps> = ({ onCategorySele
       onCategorySelect(category);
     }
   };
-
+  
   return (
     <DndContext onDragEnd={handleDragEnd}>
       <div className="categories">
-        {categories.map((category) => (
+        {categories.map((key) => (
           <Draggable key={category} id={category}>
             {category}
           </Draggable>

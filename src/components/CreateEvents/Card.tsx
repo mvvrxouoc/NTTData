@@ -8,7 +8,7 @@ interface CardProps {
   location: string;
 }
 
-export const Card: React.FC<EventCardProps> = ({ pokemon, dateTime, category, location }) => {
+export const Card: React.FC<CardProps> = ({ pokemon, dateTime, category, location }) => {
   return (
     <div>
       {pokemon && (

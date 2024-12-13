@@ -6,20 +6,25 @@ import {Draggable} from './Draggable';
 
 import {TaskBox} from './TaskBox';
 import {TaskList} from './TaskList';
+import { CATEGORIES } from '../../utils/constants';
 
-const categories = ['Ocio', 'Trabajo', 'Familia', 'Personal'];
 
-export const DragAndDrop: React.FC = () => {
+interface DragAndDropProps {
+  onCategorySelect: (category: string) => void;
+}
+
+export const DragAndDrop: React.FC<DragAndDropProps> = ({ onCategorySelect }) => {
   const [isDropped, setIsDropped] = useState(false);
   const [tasks, setTasks] = useState<any[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const categories = Object.keys(CATEGORIES);
 
   const handleDragEnd = (event: any) => {
     if (event.over && event.over.id === 'droppable') {
       setIsDropped(true);
       setSelectedCategory(event.active.id);
     }
-  }
+  };
 
   const handleSave = (task: any) => {
     setTasks([...tasks, task]);

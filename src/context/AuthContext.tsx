@@ -6,6 +6,8 @@ export interface AuthContextProps {
   user: UserProps | null;
   login: (props: { userSpa?: UserDataProps; google?: UserGoogleProps }) => void;
   logout: () => void;
+  calendarId: string | null;
+  setCalendarId: (calendarId: string) => void;
 }
 
 export const AuthContext = createContext<AuthContextProps>({
@@ -16,7 +18,6 @@ export const AuthContext = createContext<AuthContextProps>({
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<UserProps | null>(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') as string) : null);
-
   const [calendarId, setCalendarId] = React.useState<string | null>(null);
 
   const login = (props: { userSpa?: UserDataProps; google?: UserGoogleProps }) => {

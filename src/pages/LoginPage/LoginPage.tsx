@@ -12,7 +12,7 @@ export const LoginPage = () => {
   const login = useGoogleLogin({
     onSuccess: (codeResponse: any) => handleGoogleLogin(codeResponse),
     onError: () => console.log('Error de Google Login'),
-    scope: 'openid email profile https://www.googleapis.com/auth/calendar.readonly',
+    scope: 'openid email profile https://www.googleapis.com/auth/calendar',
     flow: 'auth-code',
   });
 
