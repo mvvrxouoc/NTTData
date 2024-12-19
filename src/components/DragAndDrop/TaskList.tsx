@@ -13,4 +13,4 @@ export const TaskList: React.FC<{ tasks: any[] }> = ({ tasks }) => {
         ))}
       </div>
     );
-  };
+  }; 

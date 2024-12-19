@@ -1,5 +1,5 @@
 import React from 'react';
-import { DragAndDrop } from '../DragAndDrop/DragAndDrop';
+import { DragAndDrop } from '../../DragAndDrop/DragAndDrop';
 
 interface CategorySelectorProps {
   onSelectCategory: (category: string) => void;

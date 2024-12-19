@@ -28,8 +28,8 @@ export const DragAndDropCard: React.FC<DragAndDropCardProps> = ({ onCategorySele
     <DndContext onDragEnd={handleDragEnd}>
       <div className="categories">
         {categories.map((key) => (
-          <Draggable key={category} id={category}>
-            {category}
+          <Draggable key={key} id={key}>
+            {key}
           </Draggable>
         ))}
       </div>

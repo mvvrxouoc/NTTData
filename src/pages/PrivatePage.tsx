@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { PokemonApi } from '../components/PokemonApi/PokemonApi';
-import { DateTimeSelector } from '../components/CreateEvents/DateTimeSelector';
-import { LocationSelector } from '../components/CreateEvents/LocationSelector';
-import { DroppableCard } from '../components/CreateEvents/DroppableCard';
+import {
+  DateTimeSelector,
+  LocationSelector,
+  DroppableCard,
+  EventProgressBar,
+} from '../components/CreateEvents';
 import { Draggable } from '../components/DragAndDrop/Draggable';
 import { DndContext } from '@dnd-kit/core';
 import { useNavigate } from 'react-router-dom';
+import { createEvent } from '../api/services/googleCalendarService';
 import { useAuth } from '../hooks/useAuth';
 import { CalendarSelector } from '../components/GoogleCalendar/CalendarSelector';
 
@@ -16,7 +20,7 @@ export const PrivatePage = () => {
   const [category, setCategory] = useState('');
   const [location, setLocation] = useState('');
   const navigate = useNavigate();
-  const { user, calendarId } = useAuth();
+  const { user, calendarId, setCalendarId } = useAuth();
 
   const categories = ['Ocio', 'Trabajo', 'Familia', 'Personal'];
 
@@ -37,18 +41,41 @@ export const PrivatePage = () => {
 
   const handleLocationSelect = (selectedLocation: string) => {
     setLocation(selectedLocation);
-    handleSubmit();
+    setStep(5);
   };
 
-  const handleSubmit = () => {
+  const handleAddToCalendar = async () => {
+    if (!user?.google?.token || !calendarId) return;
+
     const event = {
-      pokemon: selectedPokemon,
-      dateTime,
-      category,
-      location,
+      summary: `Evento de ${selectedPokemon.name}`,
+      location: location,
+      description: `Categoría: ${category}`,
+      start: {
+        dateTime: dateTime,
+        timeZone: 'Europe/Madrid',
+      },
+      end: {
+        dateTime: new Date(
+          new Date(dateTime).getTime() + 60 * 60 * 1000
+        ).toISOString(),
+        timeZone: 'Europe/Madrid',
+      },
     };
-    alert('Evento creado exitosamente');
-    navigate('/private');
+
+    try {
+      await createEvent(user.google.token, calendarId, event);
+      alert('Evento añadido al calendario');
+      setStep(1);
+      setSelectedPokemon(null);
+      setDateTime('');
+      setCategory('');
+      setLocation('');
+      setCalendarId(null);
+
+    } catch (error) {
+      console.error('Error al añadir evento:', error);
+    }
   };
 
   const handleDragEnd = (event: any) => {
@@ -73,6 +100,7 @@ export const PrivatePage = () => {
 
   return (
     <div className="private-page">
+      <EventProgressBar step={step} />
       <div className="selectors">
         {step === 1 && <PokemonApi onSelect={handlePokemonSelect} />}
         {step === 2 && <DateTimeSelector onSelectDateTime={handleDateTimeSelect} />}
@@ -94,7 +122,11 @@ export const PrivatePage = () => {
             />
           </DndContext>
         )}
-        {step === 4 && <LocationSelector onSelectLocation={handleLocationSelect} />}
+        {step === 4 && !location && (
+          <div>
+            <LocationSelector onSelectLocation={handleLocationSelect} />
+          </div>
+        )}
       </div>
       {step !== 3 && (
         <div className="event-card-container">
@@ -106,6 +138,9 @@ export const PrivatePage = () => {
             onCategorySelect={handleCategorySelect}
           />
         </div>
+      )}
+      {step === 5 && (
+          <button onClick={handleAddToCalendar}>Añadir evento al calendario</button>
       )}
     </div>
   );

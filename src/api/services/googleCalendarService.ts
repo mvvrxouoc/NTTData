@@ -48,3 +48,19 @@ export const fetchEventsForDate = async (accessToken: string, calendarId: string
     end: event.end.dateTime || event.end.date,
   }));
 };
+
+import axios from 'axios';
+
+export const createEvent = async (accessToken: string, calendarId: string, event: any) => {
+  const response = await axios.post(
+    `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events`,
+    event,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    }
+  );
+  return response.data;
+};

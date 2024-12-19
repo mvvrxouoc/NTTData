@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { fetchEventsForDate } from '../../api/services/googleCalendarService';
-import { useAuth } from '../../hooks/useAuth';
+import { fetchEventsForDate } from '../../../api/services/googleCalendarService';
+import { useAuth } from '../../../hooks/useAuth';
 
 interface DateTimeSelectorProps {
   onSelectDateTime: (dateTime: string) => void;
