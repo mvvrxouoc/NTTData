@@ -1,9 +1,9 @@
 
 import React from 'react';
 import { DndContext } from '@dnd-kit/core';
-import { Draggable } from '../DragAndDrop/Draggable';
+import { Draggable } from '../../DragAndDrop/Draggable';
 import { useDroppable } from '@dnd-kit/core';
-import { CATEGORIES } from '../../utils/constants';
+import { CATEGORIES } from '../../../utils/constants';
 
 interface DragAndDropCardProps {
   onCategorySelect: (category: string) => void;

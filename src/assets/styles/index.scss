@@ -1,0 +1,782 @@
+// Variables
+$color-principal: #222;
+$color-fondo: #fff;
+$color-acento: #ffd700;
+$color-acento-bg: #fff3cd;
+$color-borde: #ccc;
+$color-error: #ef233c;
+$color-error-hover: #d90429;
+$color-boton: #007bff;
+$color-boton-hover: #444;
+$color-pokemon: #f0bb31;
+$color-calendario: #1a73e8;
+$color-calendario-hover: #1558b0;
+$color-calendario-bg: #e8f0fe;
+$color-calendario-off: #f5f5f5;
+$color-calendario-borde: #e0e0e0;
+$fuente-principal: 'Roboto', sans-serif;
+$borde-radio: 8px;
+$borde-radio-grande: 16px;
+$transicion: 0.25s;
+$transicion-larga: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Mixins
+@mixin boton-estilo {
+  border-radius: $borde-radio;
+  border: 1px solid $color-borde;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: $color-fondo;
+  color: $color-principal;
+  transition: border-color $transicion;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+:root {
+  margin: 0;
+  min-width: 320px;
+  min-height: 200vh;
+  margin-left: 2em;
+  font-family: $fuente-principal;
+  font-style: normal;
+  line-height: 1.5;
+  font-weight: 900;
+  color: $color-principal;
+  background-color: $color-fondo;
+}
+
+body {
+  padding-top: 80px;
+}
+
+.form {
+  width: 50%;
+  margin: auto;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+.auxiliar {
+  @include flex-center;
+  margin-bottom: 1.5em;
+  margin-top: 1em;
+  width: 20%;
+  background-color: #343434;
+  padding: 0.1em;
+  font-size: small;
+}
+
+input {
+  @include boton-estilo;
+  margin-right: 1em;
+  align-items: center;
+  &.input-pokemon {
+    width: 15em;
+  }
+  &:focus {
+    border-color: $color-acento;
+    outline: none;
+  }
+}
+
+a {
+  @include boton-estilo;
+  cursor: pointer;
+  margin-left: 1em;
+  text-decoration: none;
+  &:hover {
+    border-color: $color-acento;
+    background-color: $color-acento-bg;
+    color: $color-principal;
+  }
+}
+
+h4 {
+  text-align: center;
+  margin-top: 1em;
+}
+
+.segopt {
+  @include flex-center;
+  margin: auto;
+}
+
+button {
+  @include boton-estilo;
+  cursor: pointer;
+  text-decoration: none;
+  &:hover {
+    border-color: $color-acento;
+    background-color: $color-acento-bg;
+    color: $color-principal;
+  }
+  &:focus {
+    border-color: $color-acento;
+    outline: none;
+  }
+}
+
+.error {
+  text-align: center;
+}
+
+.css-jupps9-MuiInputBase-root-MuiOutlinedInput-root {
+  background: rgb(26 26 26);
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border-color: rgb(26 26 26) !important;
+  border-radius: $borde-radio !important;
+}
+
+.MuiInputLabel-root[data-shrink="false"] {
+  color: rgba(117,117,117,1);
+}
+
+.google-login {
+  @include flex-center;
+  margin-top: 0.8em;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: $color-fondo;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  &.scrolled {
+    height: 56px;
+    transition: height 0.2s;
+    .dropdown-content a {
+      padding: 8px 12px;
+      font-size: 0;
+      min-height: 32px;
+    }
+    .dropdown-content a img,
+    .dropdown-button img {
+      width: 28px;
+      height: 28px;
+    }
+    .dropdown-content a span,
+    .dropdown-button span {
+      display: none;
+    }
+    .header-link span {
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: all $transicion-larga;
+      width: 0;
+      overflow: hidden;
+    }
+    .header-link img {
+      width: 28px;
+      height: 28px;
+      transition: all $transicion-larga;
+    }
+    .header-link {
+      justify-content: center;
+      gap: 0;
+    }
+  }
+}
+
+.logo {
+  font-size: 1.5rem;
+  color: $color-principal !important;
+}
+
+nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  a, a.active, a:visited, a:hover {
+    background: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    color: $color-principal;
+    text-decoration: none;
+  }
+  a.active {
+    text-decoration: none;
+  }
+  a:hover {
+    color: $color-acento;
+  }
+  > .header-link.active {
+    color: $color-principal !important;
+    text-decoration: none !important;
+    position: relative;
+  }
+  .header-link {
+    position: relative;
+    text-decoration: none;
+    color: $color-principal;
+  }
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.logout-button {
+  background-color: $color-error;
+  border: none;
+  color: $color-fondo;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  &:hover {
+    background-color: $color-error-hover;
+    color: $color-fondo;
+  }
+}
+
+.categories {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.drag-and-drop-container {
+  @include flex-center;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.draggable {
+  padding: 10px 20px;
+  background-color: $color-boton;
+  color: $color-fondo;
+  border: none;
+  border-radius: 5px;
+  cursor: grab;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.droppable {
+  width: 300px;
+  height: 200px;
+  @include flex-center;
+  border: 2px dashed $color-fondo;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+  margin-right: 30px;
+}
+
+.task-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-right: 20px;
+}
+
+.task-list {
+  margin-top: 20px;
+}
+
+.task-item {
+  padding: 10px;
+  border: 1px solid $color-borde;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  .dropdown-button {
+    background: none !important;
+    color: $color-principal;
+    border: none;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    vertical-align: middle;
+    &:hover {
+      color: $color-acento;
+      .header-icon {
+        transform: scale(1.3) rotateY(360deg);
+      }
+    }
+    span {
+      font-size: 1rem;
+      vertical-align: middle;
+    }
+  }
+  .dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 160px;
+    z-index: 9999;
+    background: rgba(255,255,255,0.95);
+    border: 1px solid $color-calendario-borde;
+    border-radius: $borde-radio;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+    padding: 8px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px) scale(0.95);
+    transition: all $transicion-larga;
+    transform-origin: top center;
+    &.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+      a {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      color: $color-principal;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      transform: translateX(-5px);
+      opacity: 0.8;
+      img {
+        width: 20px;
+        height: 20px;
+      }
+      span {
+        font-size: 14px;
+      }
+      &:hover {
+        background-color: $color-acento-bg;
+        transform: translateX(2px);
+      }
+    }
+  }
+}
+
+.pokemonapi {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.datos-pokemon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userdata {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rbc-calendar {
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #000;
+}
+
+.rbc-toolbar {
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 10px;
+  border-radius: 8px 8px 0 0;
+  color: #000;
+}
+
+.rbc-toolbar button {
+  color: #1a73e8;
+  background: none;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.rbc-toolbar button:hover {
+  background-color: #e8f0fe;
+  border-radius: 4px;
+}
+
+.rbc-toolbar button:focus {
+  outline: none;
+}
+
+.rbc-month-view {
+  border: none;
+}
+
+.rbc-header {
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  color: #000;
+}
+
+.rbc-day-bg {
+  border: 1px solid #e0e0e0;
+}
+
+.rbc-date-cell {
+  text-align: right;
+  padding: 5px;
+  font-weight: bold;
+  color: #000;
+}
+
+.rbc-event {
+  background-color: #1a73e8;
+  color: #fff;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.rbc-event:hover {
+  background-color: #1558b0;
+}
+
+.rbc-today {
+  background-color: #e8f0fe;
+}
+
+.rbc-off-range-bg {
+  background-color: #f5f5f5;
+}
+
+.datosUsuario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.private-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.selectors {
+  flex: 1;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.event-card-container {
+  flex: 1;
+  padding: 20px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.droppable-card {
+  border: 1px solid #ccc;
+  min-height: 200px;
+  padding: 20px;
+}
+
+.droppable-card.over {
+  border-color: green;
+}
+
+.progress-bar-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  position: relative;
+}
+
+.progress-bar {
+  height: 10px;
+  background-color: #f0bb31;
+  border-radius: 5px;
+  transition: width 0.3s ease;
+  margin-bottom: 60px;
+}
+
+.progress-steps {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 15px;
+  width: 100%;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.step-number {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.progress-step.completed .step-number {
+  background-color: #f0bb31;
+}
+
+.step-label {
+  font-size: 12px;
+  color: #fff;
+}
+
+.pokemon-slider {
+  display: flex;
+  overflow-x: auto;
+  gap: 1.5em;
+  margin-bottom: 1em;
+  padding: 1em 0;
+  background: rgba(0,0,0,0.2);
+  border-radius: 10px;
+}
+
+.slider-item {
+  min-width: 120px;
+  background: #222;
+  border-radius: 10px;
+  padding: 0.5em;
+  transition: background 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slider-item:hover {
+  background: #444;
+  box-shadow: 0 0 10px #f0bb31;
+}
+
+.pokemon-carousel {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: 0;
+  min-height: 240px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 24px;
+  transition: transform 0.3s;
+  will-change: transform;
+  align-items: center;
+  padding-top: 60px;
+  padding-bottom: 60px;
+  overflow: visible;
+  position: relative;
+  scrollbar-width: none;      
+  -ms-overflow-style: none;  
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none;             
+}
+
+.carousel-item {
+  min-width: 120px;
+  background: #222;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px #0002;
+  padding: 16px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  transition: transform 0.2s;
+}
+
+.carousel-item:hover {
+  transform: scale(1.08);
+  background: #333;
+}
+
+.carousel-item-center {
+  z-index: 2;
+  transform: scale(1.25) !important;
+  box-shadow: 0 4px 24px #0006, 0 2px 8px #0002;
+  background: #333;
+  border: 2px solid #fff;
+}
+
+.carousel-arrow {
+  background: rgba(34,34,34,0.85);
+  border: none;
+  color: #fff;
+  font-size: 2.5rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #0006;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.carousel-arrow:hover {
+  background: #fff;
+  color: #222;
+  transform: scale(1.1);
+}
+
+.header-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.header-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  transition: transform 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.header-link:hover .header-icon {
+  transform: scale(1.3) rotateY(360deg);
+}
+
+.header-link.active {
+  color: #222 !important;
+  text-decoration: none !important;
+  position: relative;
+}
+
+.nav-center > .header-link.active {
+  color: #222 !important;
+  text-decoration: none !important;
+  position: relative;
+}
+
+.nav-center .header-link {
+  position: relative;
+  text-decoration: none;
+  color: #222;
+}
+
+.login-form-container {
+  position: relative;
+  z-index: 2;
+  background: rgba(255,255,255,0.25);
+  border: 1.5px solid #e0e0e0;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px #0002;
+  padding: 2.5em 2em;
+  max-width: 400px;
+  margin: 10em auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.login-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  background: url('/src/assets/img/mesa1.jpg') no-repeat center center/cover;
+}
+
+.login-background::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255,255,255,0.6);
+  z-index: 1;
+  pointer-events: none;
+}
+
+input, button {
+  color: #222 !important;
+}
+
+input:focus {
+  border-color: #ffd700;
+  outline: none;
+}
+
+button:focus {
+  border-color: #ffd700;
+  outline: none;
+}
+
+.dropdown-content a span {
+  font-size: 1rem;
+  vertical-align: middle;
+}
+
+.dropdown-button span {
+  font-size: 1rem;
+  vertical-align: middle;
+}

@@ -13,7 +13,7 @@ interface DragAndDropProps {
   onCategorySelect: (category: string) => void;
 }
 
-export const DragAndDrop: React.FC<DragAndDropProps> = ({ onCategorySelect }) => {
+export const DragAndDrop: React.FC<DragAndDropProps> = ( {onCategorySelect }) => {
   const [isDropped, setIsDropped] = useState(false);
   const [tasks, setTasks] = useState<any[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);

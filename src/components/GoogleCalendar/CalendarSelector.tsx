@@ -3,7 +3,7 @@ import { fetchCalendars } from '../../api/services/googleCalendarService';
 import { useAuth } from '../../hooks/useAuth';
 
 export const CalendarSelector = () => {
-  const { user, setCalendarId, calendarId } = useAuth();
+  const { user, setCalendarId } = useAuth();
   const accessToken = user?.google?.token;
   const [calendars, setCalendars] = React.useState<any[]>([]);
 

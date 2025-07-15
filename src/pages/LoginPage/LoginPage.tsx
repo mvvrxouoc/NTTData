@@ -17,35 +17,37 @@ export const LoginPage = () => {
   });
 
   return (
-    <div className="form">
-      <h1>LOGUEATE</h1>
-      <form onSubmit={(e) => { e.preventDefault(); onSubmit(formValue); }}>
-        <input
-          type="text"
-          value={formValue.username}
-          name="username"
-          placeholder="Usuario"
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          value={formValue.password}
-          name="password"
-          placeholder="Contraseña"
-          onChange={handleChange}
-        />
-        <button type="submit">Iniciar sesión</button>
-      </form>
+    <div className="login-background">
+      <div className="login-form-container">
+        <h1>LOGUEATE</h1>
+        <form onSubmit={(e) => { e.preventDefault(); onSubmit(formValue); }}>
+          <input
+            type="text"
+            value={formValue.username}
+            name="username"
+            placeholder="Usuario"
+            onChange={handleChange}
+          />
+          <input
+            type="password"
+            value={formValue.password}
+            name="password"
+            placeholder="Contraseña"
+            onChange={handleChange}
+          />
+          <button type="submit">Iniciar sesión</button>
+        </form>
 
-      <div className="google-login">
-        <button onClick={() => login()}>Iniciar sesión con Google</button>
-        {googleError && <p className="error">{googleError}</p>}
-      </div>
+        <div className="google-login">
+          <button onClick={() => login()}>Iniciar sesión con Google</button>
+          {googleError && <p className="error">{googleError}</p>}
+        </div>
 
-      {error && <p className="error">{error}</p>}
-      <div className="segopt">
-        <h4>¿No tienes cuenta?</h4>
-        <NavLink to="/register">Regístrate</NavLink>
+        {error && <p className="error">{error}</p>}
+        <div className="segopt">
+          <h4>¿No tienes cuenta?</h4>
+          <NavLink to="/register">Regístrate</NavLink>
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { PokemonApi } from '../components/PokemonApi/PokemonApi';
 import {
   DateTimeSelector,
@@ -8,7 +8,6 @@ import {
 } from '../components/CreateEvents';
 import { Draggable } from '../components/DragAndDrop/Draggable';
 import { DndContext } from '@dnd-kit/core';
-import { useNavigate } from 'react-router-dom';
 import { createEvent } from '../api/services/googleCalendarService';
 import { useAuth } from '../hooks/useAuth';
 import { CalendarSelector } from '../components/GoogleCalendar/CalendarSelector';
@@ -19,7 +18,6 @@ export const PrivatePage = () => {
   const [dateTime, setDateTime] = useState('');
   const [category, setCategory] = useState('');
   const [location, setLocation] = useState('');
-  const navigate = useNavigate();
   const { user, calendarId, setCalendarId } = useAuth();
 
   const categories = ['Ocio', 'Trabajo', 'Familia', 'Personal'];
@@ -71,7 +69,7 @@ export const PrivatePage = () => {
       setDateTime('');
       setCategory('');
       setLocation('');
-      setCalendarId(null);
+      setCalendarId('');
 
     } catch (error) {
       console.error('Error al añadir evento:', error);

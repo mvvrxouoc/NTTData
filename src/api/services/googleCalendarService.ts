@@ -49,7 +49,6 @@ export const fetchEventsForDate = async (accessToken: string, calendarId: string
   }));
 };
 
-import axios from 'axios';
 
 export const createEvent = async (accessToken: string, calendarId: string, event: any) => {
   const response = await axios.post(

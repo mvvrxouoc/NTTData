@@ -1,6 +1,6 @@
 
 import { createRoot } from 'react-dom/client'
-import './assets/styles/index.css'
+import './assets/styles/index.scss'
 import { BrowserRouter } from 'react-router-dom'
 import { App } from './components/App'
 import { GoogleOAuthProvider } from '@react-oauth/google';
